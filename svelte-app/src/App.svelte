@@ -1,14 +1,15 @@
 <script>
-import {tick} from 'svelte'
-
-    let name = 'world'
-
-    async function handler(){
-        name = 'Heropy'
-        await tick()
-        const h1 = document.querySelector('h1')
-        console.log(h1.innerText)
-    }
+    let href = 'https://heropy.blog'
+    let name = 'Heropy'
+    let value = 'New input value'
+    let isUpperCase = false
 </script>
 
-<h1 on:click={handler} >Hello {name}!</h1>
+<!-- <a href="https://heropy.blog">Heropy</a> -->
+<a href={href}>{name}</a>
+
+<!-- <input type="text" value="Default value..."> -->
+<input {value} on:input={e=>e.target.value}>
+<input bind:value>
+
+<div>{isUpperCase ? 'DIV' : 'div'}</div>
