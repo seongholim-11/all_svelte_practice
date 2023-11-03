@@ -1,11 +1,26 @@
 <script>
-    import { onMount, onDestroy } from "svelte";
+    import { onMount, onDestroy, beforeUpdate, afterUpdate } from "svelte";
 
-    onMount(() => {
+    let name = 'Something...'
+    let h1
+
+    function moreDot(){
+        name += '.'
+    }
+
+    beforeUpdate(() => {
+        console.log('Before update!')
+        console.log(h1 && h1.innerText)
+    })
+
+    afterUpdate(() => {
+        console.log('after update!')
+        console.log(h1.innerText)
+    })
+
+    onMount(() => { 
         console.log("Mounted!");
-        return () => {
-            console.log('Destroy in mount')
-        }
+        h1 = document.querySelector('h1')
     });
 
     onDestroy(()=>{
@@ -14,4 +29,4 @@
     })
 </script>
 
-<h1>Something</h1>
+<h1 on:click={moreDot}>{name}</h1>
