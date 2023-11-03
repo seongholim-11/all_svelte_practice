@@ -1,15 +1,13 @@
 <script>
-    let href = 'https://heropy.blog'
-    let name = 'Heropy'
-    let value = 'New input value'
-    let isUpperCase = false
+    let name = "Heropy";
+    let index = 0;
 </script>
 
-<!-- <a href="https://heropy.blog">Heropy</a> -->
-<a href={href}>{name}</a>
-
-<!-- <input type="text" value="Default value..."> -->
-<input {value} on:input={e=>e.target.value}>
-<input bind:value>
-
-<div>{isUpperCase ? 'DIV' : 'div'}</div>
+{@debug index, name}
+<h1
+    on:click={() => {
+        index += 1;
+    }}
+>
+    Hello {name}!~
+</h1>
