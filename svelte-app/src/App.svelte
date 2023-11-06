@@ -1,26 +1,23 @@
-<script>
-    import Fruits from './Fruits.svelte'
-</script>
-
-<h2>App.svelte</h2>
-<ul class="fruits">
-    <li>Apple</li>
-    <li>Banana</li>
-    <li>Cherry</li>
-</ul>
-
-<Fruits/>
+<div class="box" />
 
 <style>
-    .fruits{
-        color: red;
+    :global(body){
+        padding: 60px;
+    }
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: tomato;
+        border-radius: 10px;
+        animation: zoom .4s infinite alternate;
     }
 
-    /*
-        사용하지 않은 style은 svelte bundle에서 제외되지만,
-        global를 사용하면 제외되지 않음
-    */
-    :global(.heropy){
-        color: orange
+    @keyframes -global-zoom {
+        0% {
+            transform: scale(1);
+        }
+        100%{
+            transform: scale(1.5);
+        }
     }
 </style>
