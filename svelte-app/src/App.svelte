@@ -1,16 +1,40 @@
 <script>
-    import Count from "./Count.svelte";
+    function a() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log("a");
+                resolve();
+            }, 1000);
+        });
+    }
 
-    let reset = false;
+    function b() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log("b");
+                resolve();
+            }, 1000);
+        });
+    }
+    function c() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log("c");
+                resolve();
+            }, 1000);
+        });
+    }
+    function d() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log("d");
+                resolve();
+            }, 1000);
+        });
+    }
+
+    a()
+        .then(() => b())
+        .then(() => c())
+        .then(() => d());
 </script>
-
-<!-- 연결된 데이터의 값이 변경될 때마다 내용을 파괴하고 다시 생성합니다. -->
-{#key reset}
-    <Count />
-{/key}
-
-<button
-    on:click={() => {
-        reset = !reset;
-    }}>reset</button
->
