@@ -1,62 +1,24 @@
 <script>
-    let count = 0;
+    // let fruits = ['Apple', 'Banana', 'Cherry', 'Orange']
+    let fruits = [
+        { id: "1", name: "Apple"},
+        { id: "2", name: "Banana"},
+        { id: "3", name: "Cherry"},
+        { id: "4", name: "Orange"},
+    ]
+
+    function deleteFirst() {
+        fruits = fruits.slice(1)
+    }
 </script>
 
-<button
-    on:click={() => {
-        count += 1;
-    }}>증가!</button
->
-<button
-    on:click={() => {
-        count -= 1;
-    }}>감소!</button
->
+<button on:click={deleteFirst}>
+    Delete first fruit!
+</button>
 
-<h2>{count}</h2>
-
-<section>
-    <h2>if</h2>
-    {#if count > 3}
-        <div>count &gt; 3</div>
-    {/if}
-</section>
-
-<section>
-    <h2>if else</h2>
-    {#if count > 3}
-        <div>count &gt; 3</div>
-    {:else}
-        <div>count &lt;= 3</div>
-    {/if}
-</section>
-
-<section>
-    <h2>if else if</h2>
-    {#if count < 3}
-        <div>count &lt; 3</div>
-    {:else if count === 3}
-        <div>count === 3</div>
-    {:else}
-        <div>count &lt; 3</div>
-    {/if}
-</section>
-
-<section>
-    <h2>다중 블록</h2>
-    {#if count > 3}
-        {#if count === 5}
-            count === 5
-        {:else}
-            count &gt; 3
-        {/if}
-    {/if}
-</section>
-
-<style>
-    section{
-        border: 1px solid orange;
-        margin-bottom: 10px;
-        padding: 10px;
-    }
-</style>
+<ul>
+    <!-- key, 고유한 값을 넣어야 함. -->
+    {#each fruits as fruit (fruit.id)}
+    <li>{fruit.name}</li>
+    {/each}
+</ul>
