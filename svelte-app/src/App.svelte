@@ -1,54 +1,49 @@
 <script>
-    import axios from "axios";
+    let fruits = [
+        { id: 1, name: "Apple" },
+        { id: 2, name: "Banana" },
+        { id: 3, name: "Cherry" },
+    ];
 
-    let apikey = "84345988";
-    let title = "";
-    let promise = new Promise((resolve) => resolve([]));
-
-    function searchMovies() {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const res = await axios.get(
-                    `http://www.omdbapi.com/?apikey=${apikey}&s=${title}`
-                );
-                console.log(res);
-                resolve(res.data.Search);
-            } catch (err) {
-                reject(err);
-            } finally {
-                console.log("Done");
-            }
-        });
+    function assign(fruit) {
+        fruit.name += "!";
+        fruits = fruits;
+        // $$invalidate(0, fruits)
     }
 </script>
 
-<input type="text" bind:value={title} />
-<button
-    on:click={() => {
-        promise = searchMovies();
-    }}>검색!</button
->
+<section>
+    {#each fruits as fruit (fruit.id)}
+        <div on:click={() => assign(fruit)}>
+            {fruit.name}
+        </div>
+    {/each}
+</section>
 
-{#await promise}
-    <p style="color: royalblue">Loading...</p>
-{:then movies}
-    <ul>
-        {#each movies as movie}
-            <li>{movie.Title}</li>
-        {/each}
-    </ul>
-{:catch error}
-    <p style="color: red">{error.message}</p>
-{/await}
+<section>
+    {#each fruits as fruit (fruit.id)}
+        <!-- 반복문 내에서는 별도의 할당없이도 반응성을 가질 수 있음 -->
+        <div on:click={() => (fruit.name += "!")}>
+            {fruit.name}
+        </div>
+    {/each}
+    <!-- $$invalidate(0, each_value_1[fruit_index].name += "!", fruits) -->
+</section>
 
-<!-- {#if loading}
-    <p style="color: royalblue">Loading...</p>
-{:else if movies}
-    <ul>
-        {#each movies as movie}
-            <li>{movie.Title}</li>
-        {/each}
-    </ul>
-{:else if error}
-    <p style="color: red">{error.message}</p>
-{/if} -->
+<section>
+    {#each fruits as { id, name } (id)}
+        <div on:click={() => (name += "!")}>
+            {name}
+        </div>
+    {/each}
+    <!-- $$invalidate(0, each_value[each_index].name += "!", fruits) -->
+</section>
+
+<style>
+    section {
+        border: 1px solid yellowgreen;
+        margin: 10px;
+        padding: 10px;
+        font-size: 20px;
+    }
+</style>
