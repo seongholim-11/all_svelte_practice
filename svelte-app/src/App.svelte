@@ -1,27 +1,12 @@
 <script>
-    // Getter & Setter
-    // getContext & setContext
-    import Heropy from "./Heropy.svelte";
-    import Lewis from "./Lewis.svelte";
-    import Evan from "./Evan.svelte";
+    
+    import Fruit, {count} from "./Fruit.svelte";
 
-    import { getContext } from "svelte";
-
-    const pm = getContext("pm");
+    let fruits = ["Apple", "Banana", "Cherry", "Mango", "Orange"];
 </script>
 
-<h1>App({pm})</h1>
-<div>
-    <Heropy />
-    <Lewis />
-    <Evan />
-</div>
+<button on:click={() => console.log(count)}> Total count log!</button>
 
-<style>
-    h1 {
-        font-style: 50px;
-    }
-    div {
-        padding-left: 50px;
-    }
-</style>
+{#each fruits as fruit}
+    <Fruit {fruit} />
+{/each}
