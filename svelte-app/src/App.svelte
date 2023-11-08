@@ -1,13 +1,27 @@
 <script>
-    import Parent from "./Parent.svelte";
+    // Getter & Setter
+    // getContext & setContext
+    import Heropy from "./Heropy.svelte";
+    import Lewis from "./Lewis.svelte";
+    import Evan from "./Evan.svelte";
 
-    function handler(e) {
-        console.log(e.currentTarget);
-    }
+    import { getContext } from "svelte";
 
-    function myEventHandler(e) {
-        console.log(e.detail.myName);
-    }
+    const pm = getContext("pm");
 </script>
 
-<Parent on:click={handler} on:myEvent={myEventHandler} />
+<h1>App({pm})</h1>
+<div>
+    <Heropy />
+    <Lewis />
+    <Evan />
+</div>
+
+<style>
+    h1 {
+        font-style: 50px;
+    }
+    div {
+        padding-left: 50px;
+    }
+</style>
