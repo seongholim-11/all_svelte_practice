@@ -1,19 +1,64 @@
 <script>
-    import Card from "./Card.svelte";
+    import Wrap from "./Wrap.svelte";
+
+    let fruits = {
+        apple: {
+            value: "",
+            options: {
+                readonly: false,
+                disabled: false,
+                placeholder: "placeholder A",
+            },
+        },
+        banana: {
+            value: "BANANA",
+            options: {
+                disabled: false,
+                placeholder: "placeholder A",
+            },
+        },
+    };
+
+    function add(name) {
+        console.log(name);
+    }
+
+    function update(name) {
+        console.log(name);
+    }
+
+    function remove(name) {
+        console.log(name);
+    }
 </script>
 
-<Card>
-    <div slot="age">85</div>
-    <h2 slot="name">Heropy</h2>
-    <div slot="email" let:domain let:hello>thesecon{domain} / {hello}</div>
-</Card>
-<Card>
-    <span slot="email" let:domain>90{domain}</span>
-    <h3 slot="name">Neo</h3>
-</Card>
+<label class="fruits__apple" name="apple">
+    <input
+        bind:value={fruits.apple.value}
+        readonly={fruits.apple.options.readonly}
+        disabled={fruits.apple.options.disabled}
+        placeholder={fruits.apple.options.placeholder}
+        on:change={() => add("apple")}
+    />
+</label>
 
-<style>
-    h3 {
-        color: red;
-    }
-</style>
+<Wrap scopeName="apple" let:_name>
+    <label class="fruits__{_name}" name={_name}>
+        <input
+            bind:value={fruits[_name].value}
+            readonly={fruits[_name].options.readonly}
+            disabled={fruits[_name].options.disabled}
+            placeholder={fruits[_name].options.placeholder}
+            on:change={() => add(_name)}
+        /></label
+    >
+</Wrap>
+
+<Wrap scopeName="banana" let:_name>
+    <input
+        bind:value={fruits[_name].value}
+        disabled={fruits[_name].options.disabled}
+        placeholder={fruits[_name].options.placeholder}
+        on:click={() => update(_name)}
+    /></Wrap
+>
