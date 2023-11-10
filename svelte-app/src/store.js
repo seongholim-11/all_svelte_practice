@@ -1,17 +1,17 @@
-import {writable} from 'svelte/store'
+import {readable} from 'svelte/store'
 
-// 구독을 하면 2번째 인자가 실행
-export let count = writable(0, ()=>{
-    console.log('count 구독자가 1명 이상일 때!')
-    return () => {
-        console.log('count 구독자가 0명일 때')
-    }
-})
+const userData = {
+    name: 'Heropy',
+    age: 85,
+    email: 'thesecon@gmail.com',
+    token: 'Ag1oy1hsdSDe'
+}
 
-// 구독을 하면 2번째 인자가 실행
-export let name = writable('Heropy', ()=>{
-    console.log('name 구독자가 1명 이상일 때!')
+export let user = readable(userData, (set) => {
+    console.log('user 구독자가 1명 이상일 때!')
+    delete userData.token
+    set(userData)
     return () => {
-        console.log('name 구독자가 0명일 때')
+        console.log('user 구독자가 0명 일 때')
     }
 })
