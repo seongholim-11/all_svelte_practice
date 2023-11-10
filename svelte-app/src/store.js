@@ -8,4 +8,10 @@ export let count = writable(0, ()=>{
     }
 })
 
-export let name = writable('Heropy')
+// 구독을 하면 2번째 인자가 실행
+export let name = writable('Heropy', ()=>{
+    console.log('name 구독자가 1명 이상일 때!')
+    return () => {
+        console.log('name 구독자가 0명일 때')
+    }
+})
