@@ -1,18 +1,17 @@
 <script>
-    import UserCard from "./UserCard.svelte";
+    import WritableMethods from "./WritableMethods.svelte";
+
+    let toggle = true;
 </script>
 
-<UserCard>
-    <h2 slot="name">HEROPY</h2>
-    <div slot="age">85</div>
-    <div slot="email">thesecon@gmail.com</div>
-</UserCard>
+<button
+    on:click={() => {
+        toggle = !toggle;
+    }}
+>
+    Toggle</button
+>
 
-<UserCard>
-    <h2 slot="name">Neo</h2>
-    <div slot="email">neo@zillinks.com</div>
-</UserCard>
-
-<UserCard>
-    <h2 slot="name">Evan</h2>
-</UserCard>
+{#if toggle}
+    <WritableMethods />
+{/if}
