@@ -1,17 +1,19 @@
-import {readable} from 'svelte/store'
+import { writable, derived } from "svelte/store";
 
-const userData = {
-    name: 'Heropy',
-    age: 85,
-    email: 'thesecon@gmail.com',
-    token: 'Ag1oy1hsdSDe'
-}
+export let count = writable(1);
 
-export let user = readable(userData, (set) => {
-    console.log('user 구독자가 1명 이상일 때!')
-    delete userData.token
-    set(userData)
+export let double = derived(count, ($count) => $count * 2);
+
+export let total = derived([count, double], ([$count, $double], set) => {
+    console.log('total 구독자가 1명 이상일 때')
+    set($count + $double)
     return () => {
-        console.log('user 구독자가 0명 일 때')
+        console.log('total 구독자가 0명일 때')
     }
 })
+
+export let initialValue = derived(count, ($count, set) => {
+    setTimeout(() => {
+        set($count + 1)
+    }, 1000)
+}, '최초 계산 중....')
