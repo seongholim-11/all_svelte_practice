@@ -1,20 +1,34 @@
 <script>
-    import { fruits } from "./fruits";
+    let toggle = true;
+    let width = 200;
 
-    let value;
+    function hello(node, options = {}) {
+        const { width = "100px", height = "100px", color = "tomato" } = options;
+        console.log(node);
+        node.style.width = width;
+        node.style.height = height;
+        node.style.background = color || "tomato";
+
+        return {
+            update: (opts) => {
+                console.log("update!", opts);
+                node.style.width = opts.width;
+            },
+            destroy: () => {
+                console.log("destroy!");
+            },
+        };
+    }
 </script>
 
-<input bind:value />
+<button on:click={() => (toggle = !toggle)}>Toggle</button>
+<button on:click={() => (width += 20)}>SizeUp</button>
 
-<button on:click={() => fruits.setItem(value)}>Add fruit!</button>
-<button
-    on:click={() => {
-        console.log(fruits.getList());
-    }}>Log fruit list</button
->
-
-<ul>
-    {#each $fruits as { id, name } (id)}
-        <li>{name}</li>
-    {/each}
-</ul>
+<div use:hello />
+{#if toggle}<div
+        use:hello={{
+            width: `${width}px`,
+            height: "70px",
+            color: "royalblue",
+        }}
+    />{/if}
